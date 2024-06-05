@@ -6,9 +6,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Medicine;
 
+/* ----- SWAGGER OA --------- */
+/**
+ * @OA\Schema(
+ *      title="medicineType",
+ *      description="Properties of model medicineType",
+ *      required={"name"},
+ * 	    @OA\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Antibiotics"
+ *      )
+ * )
+ */
+
 class MedicineType extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $table = 'medicine_type';
 

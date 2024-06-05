@@ -9,8 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @OA\Schema(
  *      title="medicine",
- *      description="Required properties of model medicine",
+ *      description="Properties of model medicine",
  *      required={"name", "stock", "price"},
+ *      @OA\Property(
+ *          property="supplier_id",
+ *          type="integer",
+ *          example="1"
+ *      ),
+ *      @OA\Property(
+ *          property="type_id",
+ *          type="integer",
+ *          example="3"
+ *      ),
  * 	    @OA\Property(
  *          property="name",
  *          type="string",
@@ -32,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
 class Medicine extends Model
 {
     // use HasFactory;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     // Connect with table 'medicine_type'
     public function medicineType() {

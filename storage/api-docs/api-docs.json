@@ -41,6 +41,8 @@
                                 "$ref": "#/components/schemas/Medicine"
                             },
                             "example": {
+                                "supplier_id": 1,
+                                "type_id": 4,
                                 "name": "Nelco",
                                 "stock": 21,
                                 "price": 26500
@@ -73,7 +75,7 @@
                 "tags": [
                     "Medicines"
                 ],
-                "summary": "Display the specified item",
+                "summary": "Display specific medicine",
                 "operationId": "show",
                 "parameters": [
                     {
@@ -140,6 +142,8 @@
                                 "$ref": "#/components/schemas/Medicine"
                             },
                             "example": {
+                                "supplier_id": 1,
+                                "type_id": 4,
                                 "name": "Nelco",
                                 "stock": 21,
                                 "price": 26500
@@ -219,19 +223,147 @@
                     }
                 }
             }
+        },
+        "/api/medicineType": {
+            "get": {
+                "tags": [
+                    "Medicine Types"
+                ],
+                "summary": "Retrieve all medicine types",
+                "operationId": "GetMedicineType",
+                "responses": {
+                    "200": {
+                        "description": "Operation finished succesfully"
+                    }
+                }
+            }
+        },
+        "/api/medicineType/{id}": {
+            "get": {
+                "tags": [
+                    "Medicine Types"
+                ],
+                "summary": "Display specific medicine type",
+                "operationId": "GetSpecificMedicineType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of medicine type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Medicine type not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation finished succesfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/supplier": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Retrieve all supplier",
+                "operationId": "GetSupplier",
+                "responses": {
+                    "200": {
+                        "description": "Operation finished succesfully"
+                    }
+                }
+            }
+        },
+        "/api/supplier/{id}": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Display specific supplier",
+                "operationId": "GetSpecificSupplier",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Supplier not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation finished succesfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
             "Medicine": {
                 "title": "medicine",
-                "description": "Required properties of model medicine",
+                "description": "Properties of model medicine",
                 "required": [
                     "name",
                     "stock",
                     "price"
                 ],
                 "properties": {
+                    "supplier_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "type_id": {
+                        "type": "integer",
+                        "example": "3"
+                    },
                     "name": {
                         "type": "string",
                         "example": "Counter Pain"
@@ -243,6 +375,34 @@
                     "price": {
                         "type": "integer",
                         "example": "25000"
+                    }
+                },
+                "type": "object"
+            },
+            "MedicineType": {
+                "title": "medicineType",
+                "description": "Properties of model medicineType",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Antibiotics"
+                    }
+                },
+                "type": "object"
+            },
+            "Supplier": {
+                "title": "supplier",
+                "description": "Properties of model supplier",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "PT Kimia Farma"
                     }
                 },
                 "type": "object"

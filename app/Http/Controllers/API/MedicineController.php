@@ -19,7 +19,7 @@ class MedicineController extends Controller
      *      operationId="index",
      *      @OA\Response(
      *          response=200,
-     *          description="Operation finished succesfully"
+     *          description="Data returned successfully"
      *      )
      * )
      */
@@ -66,7 +66,7 @@ class MedicineController extends Controller
      *          description="Request body description",
      *          @OA\JsonContent(
      *              ref="#/components/schemas/Medicine",
-     *              example={"name": "Nelco", "stock": 21, "price": 26500}
+     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
      *          )
      *      )
      * )
@@ -99,7 +99,7 @@ class MedicineController extends Controller
      *      path="/api/medicines/{id}",
      *      operationId="show",
      *      tags={"Medicines"},
-     *      summary="Display the specified item",
+     *      summary="Display specific medicine",
      *      @OA\Response(
      *          response=404,
      *          description="Medicine not found",
@@ -112,7 +112,7 @@ class MedicineController extends Controller
      *      ),
      *       @OA\Response(
      *          response=200,
-     *          description="Operation finished succesfully",
+     *          description="Data returned successfully",
      *          @OA\JsonContent()
      *      ),
      *      @OA\Parameter(
@@ -173,7 +173,7 @@ class MedicineController extends Controller
      *          description="Request body description",
      *          @OA\JsonContent(
      *              ref="#/components/schemas/Medicine",
-     *              example={"name": "Nelco", "stock": 21, "price": 26500}
+     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
      *          )
      *      )
      * )
