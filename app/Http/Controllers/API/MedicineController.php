@@ -10,7 +10,19 @@ use App\Models\Medicine;
 
 class MedicineController extends Controller
 {
-    // Display list of all medicines
+    /* ----- SWAGGER OA --------- */
+    /**
+     * @OA\Get(
+     *      path="/api/medicines",
+     *      tags={"Medicines"},
+     *      summary="Retrieve all medicines",
+     *      operationId="index",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operation finished succesfully"
+     *      )
+     * )
+     */
     public function index() {
         $all_medicines = Medicine::select(
             'medicines.*',
@@ -21,51 +33,227 @@ class MedicineController extends Controller
         ->join('suppliers', 'medicines.supplier_id', '=', 'suppliers.id')
         ->get();
 
-    return response()->json($all_medicines);
+        // Unset type_id and supplier_id from each medicine object
+        $all_medicines->transform(function ($medicine) {
+            unset($medicine->type_id);
+            unset($medicine->supplier_id);
+            
+            return $medicine;
+        });
+
+        return response()->json($all_medicines);
     }
 
-    // Add new medicine
-    public function AddMedicine(Request $request) {
-        try {
-            $new_medicine = new Medicine;
-            $new_medicine->fill($request->validated())->save();
+    /* ----- SWAGGER OA --------- */
+    /**
+     * @OA\Post(
+     *      path="/api/medicines",
+     *      tags={"Medicines"},
+     *      summary="Add new medicine into our system",
+     *      operationId="store",
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input",
+     *          @OA\JsonContent()
+     *      ),
+     *       @OA\Response(
+     *          response=201,
+     *          description="New medicine added successfully",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Request body description",
+     *          @OA\JsonContent(
+     *              ref="#/components/schemas/Medicine",
+     *              example={"name": "Nelco", "stock": 21, "price": 26500}
+     *          )
+     *      )
+     * )
+     */
+    public function store(Request $request) {
 
+        try {
+            $validator = validator()->make($request->all(), [
+                'name' => 'required|unique:medicines|max:255',
+                'stock' => 'required',
+                'price' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                throw new HttpException(400, $validator->messages()->first());
+            }
+
+            $new_medicine = new Medicine;
+            $new_medicine->fill($request->all())->save();
             return $new_medicine;
+            
         } catch (\Exception $exception) {
-            throw new HttpException(400, "Invalid Data - {$exception->getMessage()}");
+            throw new HttpException(400, "Invalid data - {$exception->getMessage()}");
         }
     }
 
-    // Display specific medicine
-    public function GetSpecificMedicine($id) {
-        $medicine = Medicine::findOrFail($id);
+    /* ----- SWAGGER OA --------- */
+    /**
+     * @OA\Get(
+     *      path="/api/medicines/{id}",
+     *      operationId="show",
+     *      tags={"Medicines"},
+     *      summary="Display the specified item",
+     *      @OA\Response(
+     *          response=404,
+     *          description="Medicine not found",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input",
+     *          @OA\JsonContent()
+     *      ),
+     *       @OA\Response(
+     *          response=200,
+     *          description="Operation finished succesfully",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID of medicine",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      )
+     * )
+     */
+    public function show($id) {
+        $medicine = Medicine::find($id);
+
+        if (!$medicine) {
+            throw new HttpException(404, 'Medicine not found');
+        }
 
         return $medicine;
     }
 
-    // Update specific medicine
-    public function UpdateMedicine(Request $request, $id) {
+    /* ----- SWAGGER OA --------- */
+    /**
+     * @OA\Put(
+     *      path="/api/medicines/{id}",
+     *      tags={"Medicines"},
+     *      summary="Update specific medicine",
+     *      operationId="update",
+     *      @OA\Response(
+     *          response=404,
+     *          description="Medicine not found",
+     *          @OA\JsonContent()
+     *      ),
+     *       @OA\Response(
+     *          response=400,
+     *          description="Invalid input",
+     *          @OA\JsonContent()
+     *      ),
+     *       @OA\Response(
+     *          response=200,
+     *          description="Medicine updated",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID of medicine",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Request body description",
+     *          @OA\JsonContent(
+     *              ref="#/components/schemas/Medicine",
+     *              example={"name": "Nelco", "stock": 21, "price": 26500}
+     *          )
+     *      )
+     * )
+     */
+    public function update(Request $request, $id) {
+
+        $selected_medicine = Medicine::find($id);
 
         // Check if ID exists or not
-        if (!$id) {
-            throw new HttpException(400, "ID not found");
+        if (!$selected_medicine) {
+            throw new HttpException(404, "Medicine not found");
         }
 
         try {
-            $selected_medicine = Medicine::find($id);
-            $selected_medicine->fill($request->validated())->save();
+            $validator = validator()->make($request->all(), [
+                'name' => 'required|unique:medicines',
+                'stock' => 'required',
+                'price' => 'required',
+            ]);
 
-            return $selected_medicine;
+            if ($validator->fails()) {
+                throw new HttpException(400, $validator->messages()->first());
+            }
+
+            $selected_medicine->fill($request->all())->save();
+
+            return response()->json(array('message'=>'Medicine updated successfully'), 200);
+
         } catch (\Exception $exception) {
             throw new HttpException(400, "Invalid Data - {$exception->getMessage()}");
         }
     }
 
-    // Delete specific medicine
-    public function DeleteMedicine($id) {
-        $selected_medicine = Medicine::findOrFail($id);
-        $selected_medicine->delete();
+    /* ----- SWAGGER OA --------- */
+    /**
+     * @OA\Delete(
+     *      path="/api/medicines/{id}",
+     *      tags={"Medicines"},
+     *      summary="Delete specific medicine",
+     *      operationId="destroy",
+     *      @OA\Response(
+     *          response=404,
+     *          description="Medicine not found",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Medicine deleted",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID of medicine",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      )
+     * )
+     */
+    public function destroy($id) {
+        $selected_medicine = Medicine::find($id);
 
-        return response()->json(null, 204);
+        // Check if ID exists or not
+        if (!$selected_medicine) {
+            throw new HttpException(404, 'Medicine not found');
+        }
+
+        try {
+            $selected_medicine->forceDelete();
+            return response()->json(array('message'=>'Medicine deleted successfully'), 200);
+        } catch (\Exception $exception) {
+            throw new HttpException(400, "Invalid Data: {$exception->getMessage()}");
+        }
     }
 }

@@ -1,0 +1,252 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pharmacist Store API",
+        "description": "UAS-PWL1-Yedija422023007",
+        "contact": {
+            "name": "Yedija Gregorius",
+            "email": "yedija.422023007@civitas.ukrida.ac.id"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://miro.medium.com/v2/resize:fit:1200/1*J3G3akaMpUOLegw0p0qthA.png"
+        }
+    },
+    "paths": {
+        "/api/medicines": {
+            "get": {
+                "tags": [
+                    "Medicines"
+                ],
+                "summary": "Retrieve all medicines",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Operation finished succesfully"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Medicines"
+                ],
+                "summary": "Add new medicine into our system",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Request body description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Medicine"
+                            },
+                            "example": {
+                                "name": "Nelco",
+                                "stock": 21,
+                                "price": 26500
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "New medicine added successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/medicines/{id}": {
+            "get": {
+                "tags": [
+                    "Medicines"
+                ],
+                "summary": "Display the specified item",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of medicine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Medicine not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation finished succesfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Medicines"
+                ],
+                "summary": "Update specific medicine",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of medicine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Medicine"
+                            },
+                            "example": {
+                                "name": "Nelco",
+                                "stock": 21,
+                                "price": 26500
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Medicine not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Medicine updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Medicines"
+                ],
+                "summary": "Delete specific medicine",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of medicine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Medicine not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Medicine deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Medicine": {
+                "title": "medicine",
+                "description": "Required properties of model medicine",
+                "required": [
+                    "name",
+                    "stock",
+                    "price"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Counter Pain"
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "example": "30"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "25000"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

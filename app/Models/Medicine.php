@@ -5,6 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
+/* ----- SWAGGER OA --------- */
+/**
+ * @OA\Schema(
+ *      title="medicine",
+ *      description="Required properties of model medicine",
+ *      required={"name", "stock", "price"},
+ * 	    @OA\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Counter Pain"
+ *      ),
+ *  	@OA\Property(
+ *          property="stock",
+ *          type="integer",
+ *          example="30"
+ *     ),
+ *      @OA\Property(
+ *          property="price",
+ *          type="integer",
+ *          example="25000"
+ *     )
+ * )
+ */
+
 class Medicine extends Model
 {
     // use HasFactory;
