@@ -47,39 +47,6 @@
           box-sizing: border-box;
 }
 
-
-/* -------------- START of CUSTOM STYLING -------------- */
-.header-area, .outlined, .second-font {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-}
-
-.nav-custom {
-  color: #01525D;
-}
-
-.nav-custom:hover {
-  color: #dcb14a !important;
-}
-
-.jumbotron-img {
-  background-color: #FCF7ED;
-  background-image: url("../images/home/bg2.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  height: 600px;
-}
-
-.outlined {
-  border: 1px solid #01525D !important;
-  color: #01525D;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-
-/* -------------- END of CUSTOM STYLING -------------- */
-
 html, body {
   height: 100%;
 }
