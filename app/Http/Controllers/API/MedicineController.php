@@ -68,13 +68,16 @@ class MedicineController extends Controller
      *              ref="#/components/schemas/Medicine",
      *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
      *          )
-     *      )
+     *      ),
+     *      security={{"passport_token_ready": {}, "passport": {}}}
      * )
      */
     public function store(Request $request) {
 
         try {
             $validator = validator()->make($request->all(), [
+                'supplier_id' => 'required',
+                'type_id' => 'required',
                 'name' => 'required|unique:medicines|max:255',
                 'stock' => 'required',
                 'price' => 'required',
@@ -175,7 +178,8 @@ class MedicineController extends Controller
      *              ref="#/components/schemas/Medicine",
      *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
      *          )
-     *      )
+     *      ),
+     *      security={{"passport_token_ready": {}, "passport": {}}}
      * )
      */
     public function update(Request $request, $id) {
@@ -238,7 +242,8 @@ class MedicineController extends Controller
      *              type="integer",
      *              format="int64"
      *          )
-     *      )
+     *      ),
+     *      security={{"passport_token_ready": {}, "passport": {}}}
      * )
      */
     public function destroy($id) {

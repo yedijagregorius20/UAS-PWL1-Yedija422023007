@@ -13,6 +13,136 @@
         }
     },
     "paths": {
+        "/api/user/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register new user & get token",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Request body",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "example": {
+                                "name": "Levron Abigail",
+                                "email": "levron.abigail@gmail.com",
+                                "password": "l3vg41L",
+                                "password_confirmation": "l3vg41L"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login to existing user & get token",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Request body description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "example": {
+                                "email": "levron.abigail@gmail.com",
+                                "password": "l3vg41L"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "User logged in successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logout & destroy self token",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "User Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
         "/api/medicines": {
             "get": {
                 "tags": [
@@ -22,7 +152,7 @@
                 "operationId": "index",
                 "responses": {
                     "200": {
-                        "description": "Operation finished succesfully"
+                        "description": "Data returned successfully"
                     }
                 }
             },
@@ -67,7 +197,13 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
             }
         },
         "/api/medicines/{id}": {
@@ -106,7 +242,7 @@
                         }
                     },
                     "200": {
-                        "description": "Operation finished succesfully",
+                        "description": "Data returned successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -176,7 +312,13 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -221,7 +363,13 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
             }
         },
         "/api/medicineType": {
@@ -233,7 +381,7 @@
                 "operationId": "GetMedicineType",
                 "responses": {
                     "200": {
-                        "description": "Operation finished succesfully"
+                        "description": "Data returned successfully"
                     }
                 }
             }
@@ -274,7 +422,7 @@
                         }
                     },
                     "200": {
-                        "description": "Operation finished succesfully",
+                        "description": "Data returned successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -293,7 +441,7 @@
                 "operationId": "GetSupplier",
                 "responses": {
                     "200": {
-                        "description": "Operation finished succesfully"
+                        "description": "Data returned successfully"
                     }
                 }
             }
@@ -334,7 +482,7 @@
                         }
                     },
                     "200": {
-                        "description": "Operation finished succesfully",
+                        "description": "Data returned successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -351,6 +499,8 @@
                 "title": "medicine",
                 "description": "Properties of model medicine",
                 "required": [
+                    "supplier_id",
+                    "type_id",
                     "name",
                     "stock",
                     "price"
@@ -406,6 +556,53 @@
                     }
                 },
                 "type": "object"
+            },
+            "User": {
+                "title": "user",
+                "description": "Properties of model user",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Levron Abigail"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "levron.abigail@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "l3vg41L"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "passport_token_ready": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "Enter token in format without \"Bearer \"",
+                "name": "Authorization",
+                "in": "header"
+            },
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport with oauth2 security",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
+                }
             }
         }
     }

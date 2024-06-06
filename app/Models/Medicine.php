@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Schema(
  *      title="medicine",
  *      description="Properties of model medicine",
- *      required={"name", "stock", "price"},
+ *      required={"supplier_id", "type_id", "name", "stock", "price"},
  *      @OA\Property(
  *          property="supplier_id",
  *          type="integer",
