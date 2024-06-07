@@ -43,26 +43,18 @@
         <script src="{{asset('assets/js/vendor/jquery-migrate-3.3.0.min.js')}}"></script>
         <script src="{{asset('assets/js/vendor/axios.min.js')}}"></script>
         <script src="{{asset('assets/js/vendor/bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/fullpage.min.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/fullpage.min.js')}}"></script>
         <script src="{{asset('assets/js/vendor/slick.min.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/magnific-popup.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/easyzoom.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/images-loaded.min.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/isotope.min.js')}}"></script>
-        <script src="{{asset('assets/js/vendor/YTplayer.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/magnific-popup.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/easyzoom.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/images-loaded.min.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/isotope.min.js')}}"></script>
+        <script src="{{asset('assets/js/plugins/YTplayer.js')}}"></script>
         <script src="{{asset('assets/js/plugins/ajax.mail.js')}}"></script>
         <script src="{{asset('assets/js/plugins/wow.min.js')}}"></script>
         <script src="{{asset('assets/js/main.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{asset('pages/js/app.js')}}"></script>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- Include Popper.js for Bootstrap 4 -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <!-- Include Bootstrap 4 JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
         @yield('addition_script')
         <!-- END: JS Assets -->
     </body>
