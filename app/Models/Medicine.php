@@ -26,6 +26,16 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *          example="Counter Pain"
  *      ),
+ *      @OA\Property(
+ *          property="description",
+ *          type="string",
+ *          example="Description of medicine product"
+ *      ),
+ *      @OA\Property(
+ *          property="cover_image",
+ *          type="string",
+ *          example="https://d2qjkwm11akmwu.cloudfront.net/products/668244_18-12-2019_10-46-21-1665809352.webp"
+ *      ),
  *  	@OA\Property(
  *          property="stock",
  *          type="integer",
@@ -60,6 +70,7 @@ class Medicine extends Model
         'type_id',
         'name',
         'description',
+        'cover_image',
         'stock',
         'price',
         'created_at',

@@ -88,10 +88,10 @@
                         <div class="col-sm card-item">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-header d-flex justify-content-between gap-2 mb-3" style="height: 45px !important; background-color: #ff954a27 !important;">
-                                        <h5 class="card-title second-font-original second-font-size">Sarah Johnson</h5>
+                                    <div class="card-header mb-3" style="display: flex; justify-content: space-between; background-color: #ff954a27 !important;">
+                                        <h5 class="card-title mt-2 second-font-original second-font-size">Sarah Johnson</h5>
                                         
-                                        <div>
+                                        <div class="mt-2">
                                             @for ($i = 0; $i < rand(4,5); $i++)
                                                 <i class="bi bi-star-fill"></i>
                                             @endfor
@@ -106,10 +106,10 @@
                         <div class="col-sm card-item">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-header d-flex justify-content-between gap-2 mb-3" style="height: 45px !important; background-color: #ff954a27 !important;">
-                                        <h5 class="card-title second-font-original second-font-size">Mark Thompson</h5>
+                                    <div class="card-header mb-3" style="display: flex; justify-content: space-between; background-color: #ff954a27 !important">
+                                        <h5 class="card-title mt-2 second-font-original second-font-size">Marcus Luis</h5>
                                         
-                                        <div>
+                                        <div class="mt-2">
                                             @for ($i = 0; $i < rand(4,5); $i++)
                                                 <i class="bi bi-star-fill"></i>
                                             @endfor
@@ -124,10 +124,10 @@
                         <div class="col-sm card-item">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-header d-flex justify-content-between gap-2 mb-3" style="height: 45px !important; background-color: #ff954a27 !important;">
-                                        <h5 class="card-title second-font-original second-font-size">Emily Davis</h5>
+                                    <div class="card-header mb-3" style="display: flex; justify-content: space-between; background-color: #ff954a27 !important">
+                                        <h5 class="card-title mt-2 second-font-original second-font-size">Emily Davis</h5>
                                         
-                                        <div>
+                                        <div class="mt-2">
                                             @for ($i = 0; $i < rand(4,5); $i++)
                                                 <i class="bi bi-star-fill"></i>
                                             @endfor

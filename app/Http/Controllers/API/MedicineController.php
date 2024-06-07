@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Models\Medicine;
+use App\Models\MedicineType;
+use App\Models\Supplier;
 
 class MedicineController extends Controller
 {
@@ -86,6 +88,7 @@ class MedicineController extends Controller
                 'medicines.id',
                 'medicines.name',
                 'medicines.description',
+                'medicines.cover_image',
                 'suppliers.name as supplier',
                 'medicine_type.name as medicine_type',
                 'medicines.stock',
@@ -110,6 +113,29 @@ class MedicineController extends Controller
             // If filter by supplier
             if ($supplierName = $request->get('_supplier')) {
                 $data['products'] = $data['products']->where('suppliers.name', 'LIKE', '%' . strtolower($supplierName) . '%');
+            }
+
+            // If filter by medicine type
+            if ($medicineTypeName = $request->get('_type')) {
+                $data['products'] = $data['products']->where('medicine_type.name', 'LIKE', '%' . strtolower($medicineTypeName) . '%');
+            }
+
+            // If filter by price
+            if ($priceRange = $request->get('_price')) {
+                switch ($priceRange) {
+                    case 'under_100k':
+                        $data['products'] = $data['products']->where('price', '<', 100000);
+                        break;
+                    case '100_500k':
+                        $data['products'] = $data['products']->whereBetween('price', [100000, 500000]);
+                        break;
+                    case '501_1000k':
+                        $data['products'] = $data['products']->whereBetween('price', [501000, 1000000]);
+                        break;
+                    case 'above_1000k':
+                        $data['products'] = $data['products']->where('price', '>', 1000000);
+                        break;
+                }
             }
 
             // Sorting
@@ -172,7 +198,7 @@ class MedicineController extends Controller
      *          description="Request body description",
      *          @OA\JsonContent(
      *              ref="#/components/schemas/Medicine",
-     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
+     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "description": "Medicine to treat flu symptoms such as runny nose, stuffy nose, sneezing accompanied by coughing.", "cover_image": "https://d2qjkwm11akmwu.cloudfront.net/products/668244_18-12-2019_10-46-21-1665809352.webp", "stock": 21, "price": 26500}
      *          )
      *      ),
      *      security={{"passport_token_ready": {}, "passport": {}}}
@@ -240,6 +266,7 @@ class MedicineController extends Controller
             'medicines.id',
             'medicines.name',
             'medicines.description',
+            'medicines.cover_image',
             'suppliers.name as supplier',
             'medicine_type.name as medicine_type',
             'medicines.stock',
@@ -298,7 +325,7 @@ class MedicineController extends Controller
      *          description="Request body description",
      *          @OA\JsonContent(
      *              ref="#/components/schemas/Medicine",
-     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "stock": 21, "price": 26500}
+     *              example={"supplier_id": 1, "type_id": 4, "name": "Nelco", "description": "Medicine to treat flu symptoms such as runny nose, stuffy nose, sneezing accompanied by coughing.", "cover_image": "https://d2qjkwm11akmwu.cloudfront.net/products/668244_18-12-2019_10-46-21-1665809352.webp", "stock": 21, "price": 26500}
      *          )
      *      ),
      *      security={{"passport_token_ready": {}, "passport": {}}}
@@ -382,5 +409,11 @@ class MedicineController extends Controller
         } catch (\Exception $exception) {
             throw new HttpException(400, "Invalid Data: {$exception->getMessage()}");
         }
+    }
+
+    public function populateDropdowns() {
+        $suppliers = Supplier::all();
+        $medicine_types = MedicineType::all();
+        return view('pages.plp', compact('suppliers', 'medicine_types'));
     }
 }

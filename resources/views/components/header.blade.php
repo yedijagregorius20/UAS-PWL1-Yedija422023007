@@ -12,13 +12,13 @@
       @endphp
 
       @if ($currentUrl === $targetUrl)
-        <a class="nav-custom nav-item nav-link active" href="#">Home</a>
+        <a class="nav-custom nav-item nav-link active" href="/">Home</a>
       @else
-        <a class="nav-custom nav-item nav-link" href="#">Home</a>
+        <a class="nav-custom nav-item nav-link" href="/">Home</a>
       @endif
       
-      <a class="nav-custom nav-item nav-link" href="#">Medicine</a>
-      <a class="nav-custom nav-item nav-link" href="#">Reservation</a>
+      <a class="nav-custom nav-item nav-link" href="/medicine">Medicines</a>
+      <a class="nav-custom nav-item nav-link" href="#">Reservations</a>
       <a class="nav-custom nav-item nav-link" href="#">Other Services</a>
     </div>
   </div>
