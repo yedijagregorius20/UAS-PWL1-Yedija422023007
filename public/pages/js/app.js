@@ -52,9 +52,9 @@ $("#logout-btn").on('click', function(e) {
         Swal.fire({
             position: "top-end",
             icon: "info",
-            title: "Logout successfully..",
+            title: "Logout successful!",
             showConfirmButton: false,
-            timer: 1500
+            timer: 2500
         });
     })
     .catch(function (error) {
@@ -93,13 +93,13 @@ $("#form-login-btn").on('click', function(e) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Login successfully!",
+                title: "Login successful!",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2500
             });
             setTimeout(function() {
                 window.location = baseUrl;
-            }, 1500);
+            }, 2500);
         })
         .catch(function (error) {
             console.log('[ERROR] response..', error);
@@ -121,7 +121,7 @@ $("#form-register-btn").on('click', function(e) {
         $('#form-register').hide();
 
         let url = baseUrl + '/api/user/register';
-        let formData = new formData(form);
+        let formData = new FormData(form);
 
         axios.post(url, formData, apiHeaders)
         .then(function (response) {
@@ -132,13 +132,13 @@ $("#form-register-btn").on('click', function(e) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Login successfully!",
+                title: "Register successful!",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2500
             });
             setTimeout(function() {
                 window.location = baseUrl;
-            }, 1500);
+            }, 2500);
         })
         .catch(function (error) {
             console.log('[ERROR] response..', error);

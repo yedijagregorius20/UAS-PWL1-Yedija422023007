@@ -112,6 +112,10 @@
                             <div class="single-input">
                                 <input type="text" name="name" placeholder="Name" required>
                             </div>
+
+                            <div class="single-input">
+                                <input type="email" name="email" placeholder="Email Address" required>
+                            </div>
   
                             <div class="single-input">
                                 <input type="password" name="password" placeholder="Password" required>
