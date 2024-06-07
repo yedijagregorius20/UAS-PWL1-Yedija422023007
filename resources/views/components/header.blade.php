@@ -5,9 +5,19 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav" style="gap: 30px">
-        <a class="nav-custom nav-item nav-link" href="#">Medicines</a>
-        <a class="nav-custom nav-item nav-link" href="#">Doctor</a>
-        <a class="nav-custom nav-item nav-link" href="#">Shop</a>
+        @php
+          $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+          $targetUrl = 'http://127.0.0.1:8000/';
+        @endphp
+
+        @if ($currentUrl === $targetUrl)
+          <a class="nav-custom nav-item nav-link active" href="#">Home</a>
+        @else
+          <a class="nav-custom nav-item nav-link" href="#">Home</a>
+        @endif
+        
+        <a class="nav-custom nav-item nav-link" href="#">Medicine</a>
+        <a class="nav-custom nav-item nav-link" href="#">Reservation</a>
         <a class="nav-custom nav-item nav-link" href="#">Other Services</a>
       </div>
     </div>

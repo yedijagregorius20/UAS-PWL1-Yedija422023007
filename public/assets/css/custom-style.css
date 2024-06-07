@@ -1,16 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 /* -------------- START of CUSTOM STYLING -------------- */
 .header-area, .outlined, .second-font-original {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
 
-.second-font-light {
+.second-font-medium {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
+}
+
+.second-font-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
 }
   
 .second-font-size {
     font-size: 20px;
+}
+
+.third-font-size {
+    font-size: 13px !important;
+}
+
+.color-orange {
+    color: #FE9C49;
+    font-weight: 300 !important;
+}
+
+.color-white {
+    color: white;
 }
 
 .third-font-size {
@@ -22,11 +42,11 @@
 }
 
 .nav-custom {
-        color: #01525D;
+    color: #01525D;
 }
 
 .nav-custom:hover {
-color: #dcb14a !important;
+    color: #dcb14a !important;
 }
 
 .jumbotron-img {
@@ -47,6 +67,19 @@ color: #dcb14a !important;
 
 .custom-icon-size {
     font-size: 60px;
+}
+
+.pharmacy-statistics-container {
+    background-color: #01525D;
+}
+
+.stats-item {
+    text-align: left;
+}
+
+.testimonial-container {
+    margin-top: 100px !important;
+    margin-bottom: 120px !important;
 }
   
 /* -------------- END of CUSTOM STYLING -------------- */
