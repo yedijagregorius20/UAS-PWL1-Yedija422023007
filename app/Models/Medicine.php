@@ -59,6 +59,7 @@ class Medicine extends Model
         'supplier_id',
         'type_id',
         'name',
+        'description',
         'stock',
         'price',
         'created_at',

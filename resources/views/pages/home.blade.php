@@ -46,6 +46,17 @@
                 </div>
             </div>
 
+            <div class="hero-box-area mb-5">
+                <div class="container" style="max-width: 1195px !important;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hero-area" id="product-preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="container pharmacy-statistics-container">
                 <div class="row p-5 gap-5">
                     <div class="col-sm stats-item">
@@ -163,4 +174,7 @@
         </div>
     @endsection
     @section('addition_css')
+    @endsection
+    @section('addition_script')
+    <script src="{{asset('pages/js/home.js')}}"></script>
     @endsection

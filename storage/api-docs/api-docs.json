@@ -150,9 +150,66 @@
                 ],
                 "summary": "Retrieve all medicines",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "_page",
+                        "in": "query",
+                        "description": "Current page of listing",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "_limit",
+                        "in": "query",
+                        "description": "Max item displayed in a page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "_search",
+                        "in": "query",
+                        "description": "Search medicine or supplier",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "_supplier",
+                        "in": "query",
+                        "description": "Search a supplier by name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "_sort_by",
+                        "in": "query",
+                        "description": "Sort item based on selected parameter",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "stock"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Data returned successfully"
+                        "description": "Data returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             },
